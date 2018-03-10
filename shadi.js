@@ -4,6 +4,8 @@ let  existingEnemies = [];
 var enemyStarter = null;
 var enemyStarter2 = null; 
 var carTimeout = null;
+var isGameOver = false;
+
 
 var shadi  = {
   x : 250,
@@ -120,6 +122,7 @@ froggerImage.onload = function() {
 }
    
 document.addEventListener("keydown", function(event) {
+  if (!isGameOver) {
   switch(event.keyCode) {
     case 37:
       if (shadi.x > 0) shadi.x -= shadi.speed;  
@@ -138,10 +141,12 @@ document.addEventListener("keydown", function(event) {
       renderShadi(shadi.x, shadi.y);
       break; 
   }
+  } 
 });
 
 function startGame() {
-  existingEnemeies = [];
+  isGameOver = false;
+  existingEnemies = [];
   shadi.x = 250;
   shadi.y = 450;
   document.getElementById("explosion_container").style.display = "none";
@@ -167,6 +172,7 @@ function generateRandomEnemies() {
       if ((item.direction === 1 && item.x >= 500) || (item.direction === -1 && item.x <= -50)) {existingEnemies.splice(i,1)} else renderEnemy(item);
       renderShadi(shadi.x, shadi.y);
       if ( shadi.y === item.y && Math.abs(item.x - shadi.x) < 50 ) {
+        isGameOver = true;
         explosion(1,shadi.x-50,shadi.y-50);
         clearInterval(enemyStarter);
         clearInterval(enemyStarter2);
