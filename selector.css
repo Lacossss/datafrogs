@@ -1,0 +1,13 @@
+.select2-choices {
+    min-height: 550px;
+    max-height: 550px;
+    overflow-y: auto;
+    height: 500px;
+}
+
+#test {
+    min-height: 550px;
+    max-height: 550px;
+    overflow-y: auto;
+    height: 500px;
+}
