@@ -1,6 +1,6 @@
 var canvas = null;
 var ctx = null;
-let  existingEnemies = [];
+let existingEnemies = [];
 var enemyStarter = null;
 var enemyStarter2 = null; 
 var carTimeout = null;
@@ -69,7 +69,6 @@ const enemies = {
     this.direction = line.direction;
     this.type = 'bus';
   },
-
   car: function(line) {
     this.x = line.x;
     this.y = line.y;
@@ -78,7 +77,6 @@ const enemies = {
     this.image.src = 'Game/kocsi.png';
     this.direction = line.direction;
   },
-
   motor: function(line) {
     this.x = line.x;
     this.y = line.y;
@@ -122,11 +120,13 @@ const enemies = {
 }
 
 function getLine(line) {
+  console.log(line);
   return lines['line'+line];
 };
 
 function getRandomLine() {
-  return Math.floor(Math.random() * (7 - 1 + 1)) + 1;
+  const num = Math.floor(Math.random() * (7 - 1 + 1)) + 1;
+  return num;
 }
 
 function renderShadi(x, y) {
@@ -159,25 +159,25 @@ background.onload = function() {
 }  
 document.addEventListener("keydown", function(event) {
   if (!isGameOver) {
-  switch(event.keyCode) {
-    case 37:
-      if (shadi.x > 0) shadi.x -= shadi.speed;  
-      renderShadi(shadi.x, shadi.y);
-      break;
-    case 38:
-      if (shadi.y > 0) shadi.y -= shadi.speed;  
-      renderShadi(shadi.x, shadi.y);
-      break;
-    case 39:
-      if (shadi.x < 450) shadi.x += shadi.speed;  
-      renderShadi(shadi.x, shadi.y);
-      break;
-    case 40:
-      if (shadi.y < 450) shadi.y += shadi.speed;  
-      renderShadi(shadi.x, shadi.y);
-      break; 
+    switch(event.keyCode) {
+      case 37:
+        if (shadi.x > 0) shadi.x -= shadi.speed;  
+        renderShadi(shadi.x, shadi.y);
+        break;
+      case 38:
+        if (shadi.y > 0) shadi.y -= shadi.speed;  
+        renderShadi(shadi.x, shadi.y);
+        break;
+      case 39:
+        if (shadi.x < 450) shadi.x += shadi.speed;  
+        renderShadi(shadi.x, shadi.y);
+        break;
+      case 40:
+        if (shadi.y < 450) shadi.y += shadi.speed;  
+        renderShadi(shadi.x, shadi.y);
+        break; 
+    }
   }
-  } 
 });
 
 function startGame() {
@@ -189,10 +189,8 @@ function startGame() {
   generateRandomEnemies();
 }
 
-function generateRandomEnemies() {
-
-  enemyStarter = setInterval(function() {
-    var line = getRandomLine();
+function addEnemies() {
+  var line = getRandomLine();
     switch (line) {
       case 1:
         existingEnemies.push(new enemies.TEK(getLine(line)));
@@ -213,11 +211,16 @@ function generateRandomEnemies() {
         existingEnemies.push(new enemies.car(getLine(line)));
         break;       
     }
+}
+
+function generateRandomEnemies() {
+
+  enemyStarter = setInterval(function() {
+    addEnemies();
   }, 1000)
 
   enemyStarter2 = setInterval(function() {
-    var line = getRandomLine();
-    existingEnemies.push(new enemies.car(getLine(line)));
+    addEnemies();
   }, 1000)
 
   carTimeout = setInterval(function() {
@@ -226,7 +229,7 @@ function generateRandomEnemies() {
     existingEnemies.forEach(function(item,i) {
       item.x += (item.speed * item.direction);
       if ((item.direction === 1 && item.x >= 500) || (item.direction === -1 && item.x <= -50)) {
-        existingEnemies.splice(i,1)
+        existingEnemies.splice(i, 1);
       } else {
         renderEnemy(item);
       }
@@ -235,7 +238,7 @@ function generateRandomEnemies() {
 
       if ( shadi.y === item.y && Math.abs(item.x - shadi.x) < 50 ) {
         isGameOver = true;
-        explosion(1,shadi.x-50,shadi.y-50);
+        explosion(1, shadi.x-50, shadi.y-50);
 
         clearInterval(enemyStarter);
         clearInterval(enemyStarter2);
