@@ -130,7 +130,7 @@ function getRandomLine() {
 }
 
 function renderShadi(x, y) {
-  ctx.drawImage(froggerImage, 80, 30, 140, 140, x, y, shadi.speed, shadi.speed);
+  ctx.drawImage(froggerImage, 110, 35, 100, 100, x, y, shadi.speed, shadi.speed);
 }
 
 function renderEnemy(enemy) {
