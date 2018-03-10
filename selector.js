@@ -4,6 +4,7 @@ $(document).ready(function() {
     });
     $('#e1').on('select2:select', function (e) {
         console.log(e.params.data.id+'.jpg');
+        froggerImage.src = 'thumbs/' + e.params.data.id+'.jpg';
         // Do something
     });
 
