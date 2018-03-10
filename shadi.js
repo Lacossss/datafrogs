@@ -102,7 +102,23 @@ const enemies = {
     this.image = new Image(50, 50);
     this.image.src = 'Game/SOROS.png';
     this.direction = line.direction;
-  }
+  },
+  Anjan: function(line) {
+    this.x = line.x;
+    this.y = line.y;
+    this.speed = line.speed;
+    this.image = new Image(50, 50);
+    this.image.src = 'Game/Anjanka.jpg';
+    this.direction = line.direction;
+  },
+  Gunics: function(line) {
+    this.x = line.x;
+    this.y = line.y;
+    this.speed = line.speed;
+    this.image = new Image(50, 50);
+    this.image.src = 'Game/Gunicska.jpg';
+    this.direction = line.direction;
+  }      
 }
 
 function getLine(line) {
@@ -182,6 +198,12 @@ function generateRandomEnemies() {
         break;
       case 4:
         existingEnemies.push(new enemies.Soros(getLine(line)));
+        break;
+      case 5:
+        existingEnemies.push(new enemies.Anjan(getLine(line)));
+        break;
+      case 6:
+        existingEnemies.push(new enemies.Gunics(getLine(line)));
         break;
       case 7:
         existingEnemies.push(new enemies.bus(getLine(line)));
