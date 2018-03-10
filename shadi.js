@@ -191,7 +191,7 @@ function startGame() {
 
 function generateRandomEnemies() {
 
-  var enemyStarter = setInterval(function() {
+  enemyStarter = setInterval(function() {
     var line = getRandomLine();
     switch (line) {
       case 1:
@@ -215,12 +215,12 @@ function generateRandomEnemies() {
     }
   }, 1000)
 
-  var enemyStarter2 = setInterval(function() {
+  enemyStarter2 = setInterval(function() {
     var line = getRandomLine();
     existingEnemies.push(new enemies.car(getLine(line)));
   }, 1000)
 
-  var carTimeout = setInterval(function() {
+  carTimeout = setInterval(function() {
     ctx.clearRect(0,0,500,500);
     ctx.drawImage(background, 0, 0, 500, 500);
     existingEnemies.forEach(function(item,i) {
@@ -236,6 +236,7 @@ function generateRandomEnemies() {
       if ( shadi.y === item.y && Math.abs(item.x - shadi.x) < 50 ) {
         isGameOver = true;
         explosion(1,shadi.x-50,shadi.y-50);
+
         clearInterval(enemyStarter);
         clearInterval(enemyStarter2);
         clearInterval(carTimeout);

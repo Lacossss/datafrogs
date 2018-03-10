@@ -4,6 +4,9 @@ $(document).ready(function() {
     });
     $('#e1').on('select2:select', function (e) {
         console.log(e.params.data.id+'.jpg');
+        clearInterval(enemyStarter);
+        clearInterval(enemyStarter2);
+        clearInterval(carTimeout);
         froggerImage.src = 'thumbs/' + e.params.data.id+'.jpg';
         // Do something
     });
