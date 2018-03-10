@@ -67,6 +67,7 @@ const enemies = {
     this.image = new Image(150, 50);
     this.image.src = 'Game/szmokibusz.png';
     this.direction = line.direction;
+    this.type = 'bus';
   },
 
   car: function(line) {
@@ -109,7 +110,7 @@ function getLine(line) {
 };
 
 function getRandomLine() {
-  return Math.floor(Math.random() * (6 - 1 + 1)) + 1;
+  return Math.floor(Math.random() * (7 - 1 + 1)) + 1;
 }
 
 function renderShadi(x, y) {
@@ -117,7 +118,7 @@ function renderShadi(x, y) {
 }
 
 function renderEnemy(enemy) {
-  ctx.drawImage(enemy.image, enemy.x, enemy.y, 50, 50);
+  ctx.drawImage(enemy.image, enemy.x, enemy.y, enemy.type === 'bus' ? 150 : 50, 50);
 }
 
 background = new Image();
@@ -228,5 +229,4 @@ function explosion(lifes, pos_x, pos_y) {
   var audio = new Audio('soundeffects/robbanas/explosion1.mp3');
   audio.play();
   //console.log(current_visual_source);
-
 };
