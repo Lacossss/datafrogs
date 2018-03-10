@@ -58,7 +58,7 @@ const enemies = {
     this.x = line.x;
     this.y = line.y;
     this.speed = line.speed;
-    this.image = new Image(50, 50);
+    this.image = new Image(100, 50);
     this.image.src = 'Game/szmokibusz.png';
     this.direction = line.direction;
   },
@@ -86,7 +86,7 @@ const enemies = {
     this.y = line.y;
     this.speed = line.speed;
     this.image = new Image(50, 50);
-    this.image.src = 'SzaboAdam.jpg';
+    this.image.src = 'Game/tek_kicsi.png';
     this.direction = line.direction;
   }
 }
@@ -96,7 +96,7 @@ function getLine(line) {
 };
 
 function getRandomLine() {
-  return Math.round(Math.random() * (6 - 1) + 1);
+  return Math.floor(Math.random() * (6 - 1 + 1)) + 1;
 }
 
 function renderShadi(x, y) {
@@ -115,7 +115,8 @@ froggerImage.onload = function() {
   ctx = canvas.getContext("2d");
   canvas.width = 500;
   canvas.height = 500;
-  document.body.appendChild(canvas);
+  const gameCanvas = document.getElementById('game');
+  gameCanvas.appendChild(canvas);
   renderShadi(shadi.x, shadi.y)
 
   startGame();
@@ -157,7 +158,16 @@ function generateRandomEnemies() {
 
   var enemyStarter = setInterval(function() {
     var line = getRandomLine();
-    existingEnemies.push(new enemies.car(getLine(line)));
+    switch (line) {
+      case 1:
+        existingEnemies.push(new enemies.TEK(getLine(line)));
+        break;
+      case 6:
+        existingEnemies.push(new enemies.bus(getLine(line)));        
+      default:
+        existingEnemies.push(new enemies.car(getLine(line)));
+        break;       
+    }
   }, 1000)
 
   var enemyStarter2 = setInterval(function() {
