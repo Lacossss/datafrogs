@@ -116,7 +116,7 @@ const enemies = {
     this.y = line.y;
     this.speed = line.speed;
     this.image = new Image(50, 50);
-    this.image.src = 'Game/Gunicska.jpg';
+    this.image.src = 'Game/GunicskaPNG.png';
     this.direction = line.direction;
   }      
 }
