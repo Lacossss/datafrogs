@@ -16,10 +16,10 @@ var shadi  = {
 
 const lines = {
   line1: {
-    speed: 20,
+    speed: 70,
     direction: -1,
     x: 500,
-    y: 100
+    y: 100,
   },
   line2: {
     speed: 30,
@@ -59,7 +59,7 @@ const enemies = {
     this.y = line.y;
     this.speed = line.speed;
     this.image = new Image(50, 50);
-    this.image.src = 'SzaboAdam.jpg';
+    this.image.src = 'Game/szmokibusz.png';
     this.direction = line.direction;
   },
 
