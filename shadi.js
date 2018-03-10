@@ -10,13 +10,13 @@ var shadi  = {
 
 const lines = {
   line1: {
-    speed: 50,
+    speed: 20,
     direction: -1,
     x: 500,
     y: 100
   },
   line2: {
-    speed: 50,
+    speed: 30,
     direction: -1,
     x: 500,
     y: 150
@@ -34,13 +34,13 @@ const lines = {
     y: 300
   },
   line5: {
-    speed: 50,
+    speed: 30,
     direction: 1,
     x: -50,
     y: 350
   },
   line6: {
-    speed: 50,
+    speed: 20,
     direction: 1,
     x: -50,
     y: 400
