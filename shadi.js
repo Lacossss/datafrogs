@@ -130,7 +130,7 @@ function getRandomLine() {
 }
 
 function renderShadi(x, y) {
-  ctx.drawImage(froggerImage, x, y, shadi.speed, shadi.speed);
+  ctx.drawImage(froggerImage, 80, 30, 140, 140, x, y, shadi.speed, shadi.speed);
 }
 
 function renderEnemy(enemy) {
@@ -141,15 +141,16 @@ background = new Image();
 background.src = 'Game/background.png';
 background.onload = function() {
   froggerImage = new Image();
-  froggerImage.src = "SzaboAdam.jpg";
+  froggerImage.src = "thumbs/SzaboAdam.jpg";
   froggerImage.onload = function() {
+    const gameCanvas = $('#game');
+    gameCanvas.empty();
     canvas = document.createElement("canvas");
     canvas.style = "border:1px solid #d3d3d3;";
     ctx = canvas.getContext("2d");
     canvas.width = 500;
     canvas.height = 500;
-    const gameCanvas = document.getElementById('game');
-    gameCanvas.appendChild(canvas);
+    gameCanvas.append(canvas);
     ctx.drawImage(background, 0, 0, 500, 500);
     renderShadi(shadi.x, shadi.y)
   
