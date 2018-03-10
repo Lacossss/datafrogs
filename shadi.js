@@ -1,9 +1,13 @@
 var canvas = null;
 var ctx = null;
-const existingEnemies = [];
+let  existingEnemies = [];
+var enemyStarter = null;
+var enemyStarter2 = null; 
+var carTimeout = null;
+
 var shadi  = {
-  x : 5,
-  y : 9,
+  x : 250,
+  y : 450,
   speed : 50,
   img : "",
 };
@@ -94,7 +98,7 @@ function getRandomLine() {
 }
 
 function renderShadi(x, y) {
-  ctx.drawImage(froggerImage, x*shadi.speed, y*shadi.speed, shadi.speed, shadi.speed);
+  ctx.drawImage(froggerImage, x, y, shadi.speed, shadi.speed);
 }
 
 function renderEnemy(enemy) {
@@ -118,25 +122,29 @@ froggerImage.onload = function() {
 document.addEventListener("keydown", function(event) {
   switch(event.keyCode) {
     case 37:
-      if (shadi.x > 0) shadi.x -= 1;  
+      if (shadi.x > 0) shadi.x -= shadi.speed;  
       renderShadi(shadi.x, shadi.y);
       break;
     case 38:
-      if (shadi.y > 0) shadi.y -= 1;  
+      if (shadi.y > 0) shadi.y -= shadi.speed;  
       renderShadi(shadi.x, shadi.y);
       break;
     case 39:
-      if (shadi.x < 9) shadi.x += 1;  
+      if (shadi.x < 450) shadi.x += shadi.speed;  
       renderShadi(shadi.x, shadi.y);
       break;
     case 40:
-      if (shadi.y < 9) shadi.y += 1;  
+      if (shadi.y < 450) shadi.y += shadi.speed;  
       renderShadi(shadi.x, shadi.y);
       break; 
   }
 });
 
 function startGame() {
+  existingEnemeies = [];
+  shadi.x = 250;
+  shadi.y = 450;
+  document.getElementById("explosion_container").style.display = "none";
   generateRandomEnemies();
 }
 
@@ -154,21 +162,26 @@ function generateRandomEnemies() {
 
   var carTimeout = setInterval(function() {
     ctx.clearRect(0,0,500,500);
-    existingEnemies.forEach(function(item) {
+    existingEnemies.forEach(function(item,i) {
       item.x += (item.speed * item.direction);
-      renderEnemy(item);
+      if ((item.direction === 1 && item.x >= 500) || (item.direction === -1 && item.x <= -50)) {existingEnemies.splice(i,1)} else renderEnemy(item);
       renderShadi(shadi.x, shadi.y);
-    });
-
+      if ( shadi.y === item.y && Math.abs(item.x - shadi.x) < 50 ) {
+        explosion(1,shadi.x-50,shadi.y-50);
+        clearInterval(enemyStarter);
+        clearInterval(enemyStarter2);
+        clearInterval(carTimeout);
+      }
+    }); 
   }, 100);
 }
 
 function explosion(lifes, pos_x, pos_y) {
   console.log("lofasz")
  
-  document.getElementById("explosion_container").style ="position:absolute;" + "top: " + pos_x + "px;"  + "left: " + pos_y + "px;";
+  document.getElementById("explosion_container").style ="position:absolute;" + "top: " + pos_y + "px;"  + "left: " + pos_x + "px;";
   document.getElementById("explosion_img").src="Game/explosion1.gif"
   
-  console.log(current_visual_source);
+  //console.log(current_visual_source);
   
 };
